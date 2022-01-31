@@ -1,4 +1,4 @@
-package br.com.razek.qrcode.PersonNotFoundException;
+package br.com.razek.qrcode.exceptions.PersonNotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

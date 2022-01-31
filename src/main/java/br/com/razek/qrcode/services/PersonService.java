@@ -1,6 +1,6 @@
 package br.com.razek.qrcode.services;
 
-import br.com.razek.qrcode.PersonNotFoundException.PersonNotFoundException;
+import br.com.razek.qrcode.exceptions.PersonNotFoundException.PersonNotFoundException;
 import br.com.razek.qrcode.dto.PersonDTO;
 import br.com.razek.qrcode.entity.Person;
 import br.com.razek.qrcode.mapper.PersonMapper;

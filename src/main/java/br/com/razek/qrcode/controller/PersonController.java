@@ -1,14 +1,11 @@
 package br.com.razek.qrcode.controller;
 
-import br.com.razek.qrcode.PersonNotFoundException.PersonNotFoundException;
+import br.com.razek.qrcode.exceptions.PersonNotFoundException.PersonNotFoundException;
 import br.com.razek.qrcode.dto.PersonDTO;
 import br.com.razek.qrcode.entity.Person;
 import br.com.razek.qrcode.services.PersonService;
-import br.com.razek.qrcode.services.QrCodeGeneratorService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
