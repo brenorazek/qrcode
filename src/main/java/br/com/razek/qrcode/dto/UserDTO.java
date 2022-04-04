@@ -5,14 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PersonDTO{
+public class UserDTO {
 
     private Long id;
 
@@ -20,8 +17,7 @@ public class PersonDTO{
 
     private String email;
 
-    private String department;
+    private String password;
 
-    private List<PhoneDTO> phones;
-
+    private String secret;
 }

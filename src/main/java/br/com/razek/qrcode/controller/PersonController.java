@@ -1,23 +1,26 @@
 package br.com.razek.qrcode.controller;
 
+import br.com.razek.qrcode.dto.PhoneDTO;
+import br.com.razek.qrcode.entity.Phone;
 import br.com.razek.qrcode.exceptions.PersonNotFoundException.PersonNotFoundException;
 import br.com.razek.qrcode.dto.PersonDTO;
 import br.com.razek.qrcode.entity.Person;
 import br.com.razek.qrcode.services.PersonService;
+import br.com.razek.qrcode.util.FileUploadUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/perfil")
+@RequestMapping(value = "/card")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 public class PersonController {
 
     private PersonService personService;
-
 
     @PostMapping
     public Person createPerson(@RequestBody @Valid PersonDTO personDTO){
