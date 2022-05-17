@@ -13,12 +13,10 @@ import java.util.Objects;
 public class FileUploadUtil {
 
     public static void save(MultipartFile file, String fileName, String uploadDir) {
-        String newFileName = getExtension(file, fileName);
-        System.out.println(uploadDir);
-        System.out.println(fileName);
+        //String newFileName = getExtension(file, fileName);
         Path uploadPath = Paths.get(uploadDir);
         try {
-            Files.copy(file.getInputStream(), uploadPath.resolve(Objects.requireNonNull(newFileName)), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.getInputStream(), uploadPath.resolve(Objects.requireNonNull(fileName)), StandardCopyOption.REPLACE_EXISTING);
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage() + uploadPath + uploadDir);
         }

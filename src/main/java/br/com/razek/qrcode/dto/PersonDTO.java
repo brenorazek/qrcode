@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,12 +15,16 @@ public class PersonDTO{
 
     private Long id;
 
-    private String name;
+    private String firstname;
+
+    private String lastname;
 
     private String email;
 
     private String department;
 
     private List<PhoneDTO> phones;
+
+    private AvatarDTO avatar;
 
 }

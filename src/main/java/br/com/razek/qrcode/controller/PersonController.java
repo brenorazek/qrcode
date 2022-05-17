@@ -22,9 +22,15 @@ public class PersonController {
         return personService.createPerson(personDTO);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
         return personService.findById(id);
+    }
+
+    @GetMapping("/{firstname}{lastname}")
+    public PersonDTO findByName(@PathVariable String firstname, String lastname) throws PersonNotFoundException {
+        System.out.println(firstname);
+        return personService.findByName(firstname, lastname);
     }
 
     @GetMapping
@@ -32,7 +38,7 @@ public class PersonController {
         return personService.listAll();
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public Person updateById(@PathVariable Long id, @RequestBody @Valid PersonDTO personDTO) throws PersonNotFoundException {
         return personService.updateById(id, personDTO);
     }
