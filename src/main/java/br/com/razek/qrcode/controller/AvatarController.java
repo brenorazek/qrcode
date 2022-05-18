@@ -51,4 +51,13 @@ public class AvatarController {
         return avatarService.listAll();
     }
 
+    @PutMapping
+    public ResponseEntity<HttpStatus> UpdateImage (@RequestParam("file") MultipartFile file, @RequestParam("name") String avatarName, @RequestParam("avatarId") Long avatarId) throws AvatarNotFoundException {
+        if(file != null) {
+            return avatarService.updateById(file, avatarName, avatarId);
+        }else {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
+    }
+
 }

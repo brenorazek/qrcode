@@ -28,18 +28,14 @@ public class PersonService {
 
     private final PersonMapper personMapper = PersonMapper.INSTANCE;
 
-    //@Value("${qr.code.directory}")
-    //private String qrCodeDirectory;
-
     @Autowired
     private QrCodeGeneratorService qrCodeGeneratorService;
 
     public Person createPerson(PersonDTO personDTO){
-        //personDTO.setAvatar(Hashing.sha256().hashString(personDTO.getName(), StandardCharsets.UTF_8).toString().substring(0, 10));
         Person personToSave = personMapper.toModel(personDTO);
         Person savedPerson = personRepository.save(personToSave);
-        String qrCodeName = Hashing.sha256().hashString(savedPerson.getFirstname(), StandardCharsets.UTF_8).toString().substring(0, 16);
-        GenerateQrCode(qrCodeName);
+        //String qrCodeName = Hashing.sha256().hashString(savedPerson.getFirstname(), StandardCharsets.UTF_8).toString().substring(0, 16);
+        //GenerateQrCode(qrCodeName);
         return savedPerson;
     }
 
@@ -58,11 +54,6 @@ public class PersonService {
         return allPeople.stream().map(personMapper::toDTO).collect(Collectors.toList());
     }
 
-    /*
-    private Person verifyIfExistsByName(String firstname) {
-
-
-     */
 
     private Person verifyIfExists(Long id) throws PersonNotFoundException {
         return personRepository.findById(id)
