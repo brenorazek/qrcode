@@ -11,12 +11,11 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -32,11 +31,11 @@ public class PersonService {
     private QrCodeGeneratorService qrCodeGeneratorService;
 
     public Person createPerson(PersonDTO personDTO){
+        verifyifExistsName(personDTO.getFirstname(), personDTO.getLastname());
         Person personToSave = personMapper.toModel(personDTO);
-        Person savedPerson = personRepository.save(personToSave);
         //String qrCodeName = Hashing.sha256().hashString(savedPerson.getFirstname(), StandardCharsets.UTF_8).toString().substring(0, 16);
         //GenerateQrCode(qrCodeName);
-        return savedPerson;
+        return personRepository.save(personToSave);
     }
 
     public PersonDTO findById(Long id) throws PersonNotFoundException {
@@ -58,6 +57,14 @@ public class PersonService {
     private Person verifyIfExists(Long id) throws PersonNotFoundException {
         return personRepository.findById(id)
                 .orElseThrow(() -> new PersonNotFoundException(id));
+    }
+
+    private void verifyifExistsName(String firstname, String lastname) {
+        Person person = personRepository.findByFirstnameAndLastname(firstname,lastname);
+        System.out.println(person);
+        if(person != null && person.getFirstname().equals(firstname) && person.getLastname().equals(lastname)){
+            throw new DataIntegrityViolationException("Nome já cadastrado!");
+        }
     }
 
     public Person updateById(Long id, PersonDTO personDTO) throws PersonNotFoundException {
