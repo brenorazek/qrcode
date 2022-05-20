@@ -61,7 +61,6 @@ public class PersonService {
 
     private void verifyifExistsName(String firstname, String lastname) {
         Person person = personRepository.findByFirstnameAndLastname(firstname,lastname);
-        System.out.println(person);
         if(person != null && person.getFirstname().equals(firstname) && person.getLastname().equals(lastname)){
             throw new DataIntegrityViolationException("Nome já cadastrado!");
         }
