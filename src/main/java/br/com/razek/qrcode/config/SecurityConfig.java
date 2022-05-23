@@ -6,6 +6,7 @@ import br.com.razek.qrcode.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -49,28 +50,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil));
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil, userDetailsService));
 
-        //http.authorizeRequests().antMatchers("/user").authenticated().antMatchers("/").permitAll().anyRequest().authenticated();
-        http.authorizeRequests().antMatchers("/**").permitAll().anyRequest().authenticated();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-/*
-        http
-                .authorizeRequests()
-                .antMatchers("/**").permitAll()
-                .anyRequest().fullyAuthenticated()
-                .and()
-                .httpBasic()
-                .and()
+        http = http
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .cors()
-                .and()
-                .csrf().disable().anonymous().disable();
+                .and();
 
-
- */
-
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/card/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/upload/**").permitAll()
+                .anyRequest().authenticated();
 
     }
 
@@ -84,7 +72,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
         corsConfiguration.setAllowedOrigins(List.of("*"));
-        corsConfiguration.setAllowedHeaders(List.of("*"));
         corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
 
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
