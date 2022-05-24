@@ -36,7 +36,7 @@ public class AvatarService {
     //public String uploadDir;
 
     public byte[] findById(Long id) throws AvatarNotFoundException, IOException {
-        String uploadDir = "etc/avatar/";
+        String uploadDir = "C:/qrcode/";
         Avatar avatar = verifyIfExists(id);
         String fileName = avatar.getName();
         File serverFile = new File(uploadDir + fileName);
@@ -49,7 +49,7 @@ public class AvatarService {
     }
 
     public ResponseEntity<HttpStatus> updateById(MultipartFile file, String avatarName, Long avatarId) throws AvatarNotFoundException {
-        String uploadDir = "etc/avatar/";
+        String uploadDir = "C:/qrcode/";
         verifyIfExists(avatarId);
         if(avatarName != null){
             FileUploadUtil.save(file, avatarName, uploadDir);

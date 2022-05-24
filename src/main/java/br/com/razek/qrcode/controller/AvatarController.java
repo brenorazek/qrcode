@@ -32,7 +32,7 @@ public class AvatarController {
 
     @PostMapping
     public ResponseEntity<HttpStatus> UploadImage (@RequestParam("file") MultipartFile file, @RequestParam("name") String fileName){
-        String uploadDir = "etc/avatar/";
+        String uploadDir = "C:/qrcode/";
         if(fileName != null){
             FileUploadUtil.save(file, fileName, uploadDir);
             return ResponseEntity.status(HttpStatus.OK).build();
