@@ -3,6 +3,7 @@ package br.com.razek.qrcode.controller;
 import br.com.razek.qrcode.dto.UserChangePasswordDTO;
 import br.com.razek.qrcode.dto.UserDTO;
 import br.com.razek.qrcode.entity.User;
+import br.com.razek.qrcode.exceptions.DataIntegrityViolationException;
 import br.com.razek.qrcode.exceptions.PersonNotFoundException.PersonNotFoundException;
 import br.com.razek.qrcode.exceptions.UserNotFoundException.UserNotFoundByEmailException;
 import br.com.razek.qrcode.exceptions.UserNotFoundException.UserNotFoundException;
@@ -29,7 +30,7 @@ public class UserController {
 
 
     @PutMapping("/changePassword")
-    public String changePassword (HttpServletRequest request, @RequestBody UserChangePasswordDTO userChangePasswordDTO) throws UserNotFoundByEmailException {
+    public String changePassword (HttpServletRequest request, @RequestBody UserChangePasswordDTO userChangePasswordDTO) throws UserNotFoundByEmailException, DataIntegrityViolationException {
 
         String token = request.getHeader("Authorization");
         String userEmail = jwtUtil.getUsername(token);
